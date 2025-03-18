@@ -1,18 +1,17 @@
+function myFunction() {
+    alert('Hello');
+}
+
 function getComputerChoice() {
     let compChoice = Math.floor(Math.random() * (3));
     return compChoice;
 };
 
-function getHumanChoice() {
-    let choice = prompt("Enter your Choice (Rock, Paper, Scissors): ");
-    choice = choice.toUpperCase();
-    switch (choice) {
-        case "R":
-        case "ROCK": return 0;
-        case "P":
-        case "PAPER": return 1;
-        case "S":
-        case "SCISSORS": return 2;
+function convertToNum(num) {
+    switch (num) {
+        case "rock": return 0;
+        case "paper": return 1;
+        case "scissors": return 2;
         default: 
             console.log("ERROR: invalid choice... choosing random...");
             return getComputerChoice();
@@ -30,37 +29,71 @@ function convertToRPS(c) {
 let humanScore = 0;
 let computerScore = 0;
 
-function playRound() {
+/**
+ * Event Listeners
+ * on button click, determine the user's choice and disable other choices
+ */
+const btns = document.querySelectorAll("button");
+btns.forEach((btn) => {
+    // add event listener for each button
+    btn.addEventListener("click", () => {
+        // disable other buttons
+        btns.forEach((b) => {
+            if (btn.id != b.id) {
+                b.disabled = true;
+            }
+        })
+        // simulate computer making choice
+        setTimeout(() => {
+            playRound(parseInt(btn.id)); // carry out round
+        }, 1000);
+    })
+})
+
+const results = document.querySelector("#results-feedback");
+const hScore = document.querySelector("#human-score");
+const cScore = document.querySelector("#computer-score");
+
+function playRound(humanChoice) {
     let computerChoice = getComputerChoice();
-    let humanChoice = getHumanChoice();
 
     if (humanChoice - computerChoice === -1 || humanChoice - computerChoice === 2) {
         computerScore++;
-        console.log("(You) " + convertToRPS(humanChoice) + " vs. (Computer) " + convertToRPS(computerChoice) + "... " + "Computer wins!");
+        results.textContent = "(You) " + convertToRPS(humanChoice) + " vs. (Computer) " + convertToRPS(computerChoice) + "... " + "Computer wins!";
     }
     else if (humanChoice - computerChoice != 0) {
         humanScore++;
-        console.log("(You) " + convertToRPS(humanChoice) + " vs. (Computer) " + convertToRPS(computerChoice) + "... " + "You win!");
+        results.textContent = "(You) " + convertToRPS(humanChoice) + " vs. (Computer) " + convertToRPS(computerChoice) + "... " + "You win!";
 
     }
     else {
-        console.log("(You) " + convertToRPS(humanChoice) + " vs. (Computer) " + convertToRPS(computerChoice) + "... " + "Tie!");
+        results.textContent = "(You) " + convertToRPS(humanChoice) + " vs. (Computer) " + convertToRPS(computerChoice) + "... " + "Tie!";
     }
-}
 
-for (let i = 0; i < 5; i++) {
-    playRound();
-}
+    btns.forEach((btn) => {
+        btn.disabled = false;
+    })
 
-console.log("-------------------")
-console.log("Computer Score: " + computerScore);
-console.log("Your Score: " + humanScore);
-if (computerScore > humanScore) {
-    console.log("Computer Wins Overall!");
-}
-else if (computerScore < humanScore) {
-    console.log("You Win Overall!");
-}
-else {
-    console.log("It's a tie!");
+    hScore.textContent = humanScore;
+    cScore.textContent = computerScore;
+
+    if (humanScore == 2 || computerScore == 2) {
+        btns.forEach((btn) => {
+            btn.disabled = true;
+        })
+        const innerContainer = document.querySelector(".inner-container");
+        innerContainer.style.backgroundColor = "#f6f6f6";
+        const h1 = document.querySelector(".inner-container h1");
+        if (humanScore > computerScore) {
+            h1.textContent = "You win!";
+        }
+        else {
+            h1.textContent = "You lose!"
+        }
+        results.textContent = "Game over!";
+        setTimeout(() => {
+            location.reload();
+        }, 5000);
+    }
+
 }

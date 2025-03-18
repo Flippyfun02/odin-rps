@@ -1,0 +1,98 @@
+* {
+    font-family: "Open Sans", Roboto, sans-serif;
+    text-align: center;
+}
+
+body {
+    display:flex;
+	height:98vh;
+	align-items:center;
+    justify-content: center;
+}
+
+.outer-container {
+    background: #d1d1d1;
+    border-radius: 10px;
+    padding: 32px;
+    max-width: 500px;
+}
+
+.inner-container {
+    background: #e6e6e6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.score-display {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.score-box {
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    padding: 16px;
+    max-width: 100px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+#human-score-box,
+#computer-score-box {
+    width: 100px;
+    border-radius: 10px;
+}
+
+#human-score-box {
+    background: #ed5151;
+}
+
+#computer-score-box {
+    background: #51c3ed;
+}
+
+#human-score,
+#computer-score {
+    font-size: 48px;
+    font-weight: bold;
+    height: 75px;
+    vertical-align: middle;
+    border-radius: 10px;
+}
+
+#human-score {
+    background: #f08d8d;
+}
+
+#computer-score {
+    background: #8ddff0;
+}
+
+.play-area {
+    padding: 32px;
+    display: flex;
+    gap: 24px;
+}
+
+button {
+    background: #ffd966;
+    border-radius: 100%;
+    padding: 32px;
+    border: none;
+}
+
+button:disabled {
+    background: #ffe491;
+}
+
+img {
+    width: 64px;
+}
+
+.results {
+    margin-bottom: 16px;
+}
