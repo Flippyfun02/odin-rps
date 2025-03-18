@@ -77,7 +77,7 @@ function playRound(humanChoice) {
     hScore.textContent = humanScore;
     cScore.textContent = computerScore;
 
-    if (humanScore == 2 || computerScore == 2) {
+    if (humanScore == 5 || computerScore == 5) {
         btns.forEach((btn) => {
             btn.disabled = true;
         })
